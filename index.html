@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Temperature Converter</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Temperature Converter</h2>
+                <div class="form-group">
+                    <label for="temperature">Enter temperature:</label>
+                    <input type="text" id="temperature" placeholder="Enter temperature" />
+                </div>
+
+                <label><b>Convert from:</b></label>
+                <input type="radio" id="fromCelsius" name="convertFrom" value="celsius" checked />
+                <label for="fromCelsius">Celsius</label>
+                <input type="radio" id="fromFahrenheit" name="convertFrom" value="fahrenheit" />
+                <label for="fromFahrenheit">Fahrenheit</label>
+                <br>
+                <br>
+                <div>
+                    <label><b>Convert to:</b></label>
+                    <input type="radio" id="toCelsius" name="convertTo" value="celsius" />
+                    <label for="toCelsius">Celsius</label>
+                    <input type="radio" id="toFahrenheit" name="convertTo" value="fahrenheit" checked />
+                    <label for="toFahrenheit">Fahrenheit</label>
+                    <br />
+                    <br>
+                </div>
+                <button onclick="convertTemperature()">Convert</button>
+                <div class="output">
+                    <p id="result"></p>
+                </div>
+    </div>
+    <script>
+        function convertTemperature() {
+            const inputTemperature = document.getElementById("temperature").value;
+            if (isNaN(inputTemperature)) {
+                alert("Please enter a valid temperature!");
+                return;
+            }
+
+            const convertFrom = document.querySelector('input[name="convertFrom"]:checked').value;
+            const convertTo = document.querySelector('input[name="convertTo"]:checked').value;
+
+            let convertedTemperature;
+            if (convertFrom === "celsius") {
+                if (convertTo === "fahrenheit") {
+                    convertedTemperature = (inputTemperature * 9 / 5) + 32;
+                }
+            } else if (convertFrom === "fahrenheit") {
+                if (convertTo === "celsius") {
+                    convertedTemperature = (inputTemperature - 32) * 5 / 9;
+                } else if (convertTo === "celsius") {
+                    convertedTemperature = parseFloat(inputTemperature) - 273.15;
+                } else if (convertTo === "fahrenheit") {
+                    convertedTemperature = (parseFloat(inputTemperature) - 273.15) * 9 / 5 + 32;
+                }
+            }
+
+            document.getElementById("result").textContent = `Converted temperature: ${convertedTemperature.toFixed(2)} ${convertTo.toUpperCase()}`;
+        }
+    </script>
+</body>
+</html>
